@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 //Here I Am Importing from the Patient Model
 const Patient = require("../models/Patient");
+const Contact = require("../models/contact");
+const Seizure = require("../models/seizure");
+const Medication = require("../models/medication");
 
 // Create a new Patient
 router.post("/", async (req, res) => {
@@ -13,6 +16,48 @@ router.post("/", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
+// Add a New Emergency Contact
+router.post("/contacts", async (req, res) => {
+  try {
+    const { name, relationship, phoneNumber, email, address } = req.body;
+    const newContact = new Contact({
+      name,
+      relationship,
+      phoneNumber,
+      email,
+      address,
+    });
+    await newContact.save();
+    res.status(201).json(newContact);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// POST: Log a new seizure
+router.post("/seizures", async (req, res) => {
+  try {
+    const { duration, type, notes } = req.body;
+    const newSeizure = new Seizure({ duration, type, notes });
+    await newSeizure.save();
+    res.status(201).json(newSeizure);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// POST: Add a new medication
+router.post("/medications", async (req, res) => {
+  try {
+    const { name, dosage, schedule, notes } = req.body;
+    const newMedication = new Medication({ name, dosage, schedule, notes });
+    await newMedication.save();
+    res.status(201).json(newMedication);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Get a Patient by its ID
 router.get("/:id", async (req, res) => {
   try {
@@ -122,6 +167,108 @@ router.get("/condition/:condition", async (req, res) => {
     res.status(200).json(patients);
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+});
+
+// GET: Retrieve all emergency contacts
+router.get("/contacts", async (req, res) => {
+  try {
+    const contacts = await Contact.find();
+    res.status(200).json(contacts);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// GET: Retrieve all seizures
+router.get("/seizures", async (req, res) => {
+  try {
+    const seizures = await Seizure.find();
+    res.status(200).json(seizures);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// GET: Retrieve all medications
+router.get("/medications", async (req, res) => {
+  try {
+    const medications = await Medication.find();
+    res.status(200).json(medications);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// PUT: Update an emergency contact (using an ID)
+router.put("/contacts/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedContact = await Contact.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+    res.status(200).json(updatedContact);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// PUT: Update a seizure record (using an ID)
+router.put("/seizures/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedSeizure = await Seizure.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+    res.status(200).json(updatedSeizure);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// PUT: Update a medication record (using an ID)
+router.put("/medications/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedMedication = await Medication.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+    res.status(200).json(updatedMedication);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// DELETE: Remove an emergency contact
+router.delete("/contacts/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await Contact.findByIdAndDelete(id);
+    res.status(204).send();
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// DELETE: Remove a seizure record
+router.delete("/seizures/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await Seizure.findByIdAndDelete(id);
+    res.status(204).send();
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// DELETE: Remove a medication record
+router.delete("/medications/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await Medication.findByIdAndDelete(id);
+    res.status(204).send();
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 
