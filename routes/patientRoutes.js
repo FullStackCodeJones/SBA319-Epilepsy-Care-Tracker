@@ -14,7 +14,7 @@ router.post("/", async (req, res) => {
   }
 });
 // Get a Patient by its ID
-router.put("/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const patient = await Patient.findByIdAndUpdate;
     if (!patient) {
@@ -48,7 +48,7 @@ router.delete("/:id", async (req, res) => {
   try {
     const patient = await Patient.findByIdAndDelete(req.params.id);
     if (!patient) {
-      return res.status(404), json({ error: "Patient Not Found" });
+      return res.status(404).json({ error: "Patient Not Found" });
     }
     res.status(200).json({ message: "Patient Deleted Successfully" });
   } catch (error) {
