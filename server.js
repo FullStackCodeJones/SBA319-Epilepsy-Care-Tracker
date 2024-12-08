@@ -7,6 +7,9 @@ const mongoose = require("mongoose");
 // to a different domain than this one).
 const cors = require("cors");
 
+// Importing The Patient Routes
+const patientRoutes = require("./routes/patientRoutes");
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -31,6 +34,8 @@ app.get("/", (req, res) => {
   res.send("The Epilepsy Tracker Is Running!");
 });
 
+// Use The Patient Routes---------
+app.use("/api/patients", patientRoutes);
 //This Starts The Server-----------
 
 app.listen(PORT, () => {

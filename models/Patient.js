@@ -1,4 +1,4 @@
-const mongoose = required("mongoose");
+const mongoose = require("mongoose");
 
 //Here I am Defining The Patient Schema-------
 const patientSchema = new mongoose.Schema({
