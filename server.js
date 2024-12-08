@@ -3,6 +3,7 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+const path = require("path");
 //⬇️This enables CORS(Cross-Origin Resource Sharing Middleware to prevent malicious websites from making requests
 // to a different domain than this one).
 const cors = require("cors");
@@ -18,6 +19,9 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, "public")));
 
 //MongoDB Connection-----------
 console.log(process.env.MONGO_URI);

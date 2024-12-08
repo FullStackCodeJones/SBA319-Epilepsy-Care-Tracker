@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Epilepsy Tracker</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Epilepsy Tracker</h1>
+      <p>A tool for tracking seizures, medications, and emergency contacts.</p>
+    </header>
+
+    <!-- Emergency Contact Form -->
+    <section id="emergency-contact">
+      <h2>Add Emergency Contact</h2>
+      <form id="contact-form">
+        <input
+          type="text"
+          id="contact-name"
+          placeholder="Contact Name"
+          required
+        />
+        <input
+          type="text"
+          id="contact-relationship"
+          placeholder="Relationship"
+          required
+        />
+        <input
+          type="text"
+          id="contact-phone"
+          placeholder="Phone Number"
+          required
+        />
+        <button type="submit">Add Contact</button>
+      </form>
+    </section>
+
+    <!-- Emergency Contacts List -->
+    <section id="contact-list">
+      <h2>Emergency Contacts</h2>
+      <ul id="contacts-list"></ul>
+    </section>
+
+    <!-- Seizure Tracker -->
+    <section id="seizure-tracker">
+      <h2>Track Seizure</h2>
+      <form id="seizure-form">
+        <input type="date" id="seizure-date" required />
+        <input type="time" id="seizure-time" required />
+        <textarea
+          id="seizure-description"
+          placeholder="Describe the seizure"
+          required
+        ></textarea>
+        <button type="submit">Add Seizure</button>
+      </form>
+    </section>
+
+    <!-- Seizure History -->
+    <section id="seizure-history">
+      <h2>Seizure History</h2>
+      <ul id="seizures-list"></ul>
+    </section>
+
+    <!-- Medication Reminder -->
+    <section id="medication-reminder">
+      <h2>Medication Reminder</h2>
+      <form id="medication-form">
+        <input
+          type="text"
+          id="medication-name"
+          placeholder="Medication Name"
+          required
+        />
+        <input type="time" id="medication-time" required />
+        <button type="submit">Set Reminder</button>
+      </form>
+    </section>
+
+    <!-- Medication Reminders -->
+    <section id="medication-list">
+      <h2>Medication Reminders</h2>
+      <ul id="medications-list"></ul>
+    </section>
+
+    <footer>
+      <p>&copy; 2024 Epilepsy Tracker. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
